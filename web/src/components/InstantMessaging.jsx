@@ -1,6 +1,6 @@
 import React from 'react';
 
-function instantMessaging() {
+function InstantMessaging() {
     return (
         <div>
             <h1>Message here!</h1>
@@ -8,4 +8,4 @@ function instantMessaging() {
     )
 }
 
-export default instantMessaging;
+export default InstantMessaging;

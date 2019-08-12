@@ -1,6 +1,6 @@
 import React from 'react';
 
-function locateEvents() {
+function LocateEvents() {
     return (
         <div>
             <h1>Search/Create events here!</h1>
@@ -8,4 +8,4 @@ function locateEvents() {
     )
 }
 
-export default locateEvents;
+export default LocateEvents;
