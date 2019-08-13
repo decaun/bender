@@ -26,7 +26,7 @@ const actionsStyles = {
 class SwipeMatch extends Component {
   state = {
     cards: ["First", "Second", "Third"],
-    url: "https://picsum.photos/250"
+    url: "https://placeimg.com/250/250/people"
   };
 
   remove = () =>
@@ -47,7 +47,7 @@ class SwipeMatch extends Component {
                     <Button onClick={right}>Accept</Button>
                   </div>
                 )}
-                onAfterSwipe={(this.remove, Card.forceUpdate)}//forceUpdate refreshes component before 3rd state
+                onAfterSwipe={(this.remove, Card.forceUpdate)} //forceUpdate refreshes component before 3rd state
               >
                 <Card url={this.state.url}>{cards[0]}</Card>
               </Swipeable>
