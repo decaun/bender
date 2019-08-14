@@ -1,9 +1,11 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import Swipeable from "react-swipy";
+import { bindActionCreators } from "redux";
 
 import Card from "./subSwipe/Card";
 import Button from "./subSwipe/Button";
+import { GenericAction } from "../actions/GenericAction";
 
 const appStyles = {
   height: "100%",
@@ -26,8 +28,7 @@ const actionsStyles = {
 
 class SwipeMatch extends Component {
   state = {
-    cards: ["First", "Second", "Third"],
-    url: "https://placeimg.com/250/250/people"
+    cards: ["First", "Second", "Third"]
   };
 
   remove = () =>
@@ -48,7 +49,11 @@ class SwipeMatch extends Component {
                     <Button onClick={right}>Accept</Button>
                   </div>
                 )}
-                onAfterSwipe={(this.remove, Card.forceUpdate)} //forceUpdate refreshes component before 3rd state
+                onAfterSwipe={
+                  (this.remove,
+                  Card.forceUpdate,
+                  () => this.props.GenericAction())
+                } //forceUpdate refreshes component before 3rd state
               >
                 <Card url={this.props.users[0].thumbnail}>{cards[0]}</Card>
               </Swipeable>
@@ -73,4 +78,17 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(SwipeMatch);
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators(
+    {
+      GenericAction: GenericAction
+      //1st var from action binds it to function at 2nd var
+    },
+    dispatch
+  );
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(SwipeMatch);
