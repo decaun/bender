@@ -6,6 +6,7 @@ import { bindActionCreators } from "redux";
 import Card from "./subSwipe/Card";
 import Button from "./subSwipe/Button";
 import { GenericAction } from "../actions/GenericAction";
+import { RestAction } from "../actions/RestActions";
 
 const appStyles = {
   height: "100%",
@@ -52,7 +53,8 @@ class SwipeMatch extends Component {
                 onAfterSwipe={
                   (this.remove,
                   Card.forceUpdate,
-                  () => this.props.GenericAction())
+                  () =>
+                    this.props.RestAction().then(this.props.GenericAction()))
                 } //forceUpdate refreshes component before 3rd state
               >
                 <Card url={this.props.users[0].thumbnail}>{cards[0]}</Card>
@@ -81,7 +83,8 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
-      GenericAction: GenericAction
+      GenericAction: GenericAction,
+      RestAction: RestAction
       //1st var from action binds it to function at 2nd var
     },
     dispatch

@@ -1,6 +1,7 @@
 import { combineReducers } from "redux";
 import UserReducer from "./UserReducer";
 import GenericReducer from "./GenericReducer";
+import RestReducer from "./RestReducer";
 
 /*
  * We combine all reducers into a single object before updated data is dispatched (sent) to store
@@ -9,7 +10,8 @@ import GenericReducer from "./GenericReducer";
 
 const allReducers = combineReducers({
   users: UserReducer,
-  generic: GenericReducer
+  generic: GenericReducer,
+  rest: RestReducer
   //activeUser: ActiveUserReducer
   //naming done here for all application
 });
