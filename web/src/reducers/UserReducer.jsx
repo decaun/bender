@@ -1,28 +1,53 @@
-export default function() {
-  return [
-    {
-      id: 1,
-      first: "Bucky",
-      last: "Roberts",
-      age: 71,
-      description: "Bucky is a React developer and YouTuber",
-      thumbnail: "https://placeimg.com/250/250/people"
-    },
-    {
-      id: 2,
-      first: "Joby",
-      last: "Wasilenko",
-      age: 27,
-      description: "Joby loves the Packers, cheese, and turtles.",
-      thumbnail: "https://placeimg.com/250/250/animal"
-    },
-    {
-      id: 3,
-      first: "Madison",
-      last: "Williams",
-      age: 24,
-      description: "Madi likes her dog but it is really annoying.",
-      thumbnail: "https://placeimg.com/250/250/tech"
-    }
-  ];
-}
+const initialState = {
+  1: {
+    id: 1,
+    url: "https://placeimg.com/250/250/people",
+    tag: "First"
+  },
+  2: {
+    id: 2,
+    url: "https://placeimg.com/250/250/animal",
+    tag: "Second"
+  },
+  3: {
+    id: 3,
+    url: "https://placeimg.com/250/250/ananas",
+    tag: "Third"
+  },
+  currentCounterPointer: 1,
+  nextCounterPointer: 2
+};
+
+const UserReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case "SWIPED":
+      switch (state.currentCounterPointer) {
+        case 1:
+          return {
+            ...state,
+            currentCounterPointer: state.currentCounterPointer + 1,
+            nextCounterPointer: state.nextCounterPointer + 1
+          };
+        case 2:
+          return {
+            ...state,
+            currentCounterPointer: state.currentCounterPointer + 1,
+            nextCounterPointer: 1
+          };
+        case 3:
+          return {
+            ...state,
+            currentCounterPointer: 1,
+            nextCounterPointer: state.nextCounterPointer + 1
+          };
+        default:
+          break;
+      }
+      break;
+    default:
+      break;
+  }
+  return state;
+};
+
+export default UserReducer;

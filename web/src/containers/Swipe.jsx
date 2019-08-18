@@ -7,6 +7,7 @@ import Card from "./subSwipe/Card";
 import Button from "./subSwipe/Button";
 import { GenericAction } from "../actions/GenericAction";
 import { RestAction } from "../actions/RestActions";
+import { SwipeAction } from "../actions/SwipeActions";
 
 const appStyles = {
   height: "100%",
@@ -50,18 +51,26 @@ class SwipeMatch extends Component {
                     <Button onClick={right}>Accept</Button>
                   </div>
                 )}
-                onAfterSwipe={
-                  (this.remove,
-                  Card.forceUpdate,
-                  () =>
-                    this.props.RestAction().then(this.props.GenericAction()))
+                onAfterSwipe={() =>
+                  this.props.RestAction().then(this.props.SwipeAction())
                 } //forceUpdate refreshes component before 3rd state
               >
-                <Card url={this.props.users[0].thumbnail}>{cards[0]}</Card>
+                <Card
+                  url={
+                    this.props.users[this.props.users.currentCounterPointer].url
+                  }
+                >
+                  {this.props.users[this.props.users.currentCounterPointer].tag}
+                </Card>
               </Swipeable>
               {cards.length > 1 && (
-                <Card url={this.props.users[1].thumbnail} zIndex={-1}>
-                  {cards[1]}
+                <Card
+                  url={
+                    this.props.users[this.props.users.nextCounterPointer].url
+                  }
+                  zIndex={-1}
+                >
+                  {this.props.users[this.props.users.nextCounterPointer].tag}
                 </Card>
               )}
             </div>
@@ -84,7 +93,8 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
       GenericAction: GenericAction,
-      RestAction: RestAction
+      RestAction: RestAction,
+      SwipeAction: SwipeAction
       //1st var from action binds it to function at 2nd var
     },
     dispatch

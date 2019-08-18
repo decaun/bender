@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import logger from "redux-logger";
 import thunk from "redux-thunk";
 import promise from "redux-promise-middleware";
-import axios from "axios";
+//import axios from "axios";
 import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
