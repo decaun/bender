@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, Button, Nav, ButtonToolbar } from "react-bootstrap";
+import { Card, Button, Nav } from "react-bootstrap";
 
 function LocateEvents() {
   return (
