@@ -29,53 +29,40 @@ const actionsStyles = {
 };
 
 class SwipeMatch extends Component {
-  state = {
-    cards: ["First", "Second", "Third"]
-  };
-
-  remove = () =>
-    this.setState(({ cards }) => ({ cards: cards.slice(1, cards.length) }));
-
   render() {
-    const { cards } = this.state;
-
     return (
       <div style={appStyles}>
         <div style={wrapperStyles}>
-          {cards.length > 0 && (
-            <div style={wrapperStyles}>
-              <Swipeable
-                buttons={({ right, left }) => (
-                  <div style={actionsStyles}>
-                    <Button onClick={left}>Reject</Button>
-                    <Button onClick={right}>Accept</Button>
-                  </div>
-                )}
-                onAfterSwipe={() =>
-                  this.props.RestAction().then(this.props.SwipeAction())
-                } //forceUpdate refreshes component before 3rd state
-              >
-                <Card
-                  url={
-                    this.props.users[this.props.users.currentCounterPointer].url
-                  }
-                >
-                  {this.props.users[this.props.users.currentCounterPointer].tag}
-                </Card>
-              </Swipeable>
-              {cards.length > 1 && (
-                <Card
-                  url={
-                    this.props.users[this.props.users.nextCounterPointer].url
-                  }
-                  zIndex={-1}
-                >
-                  {this.props.users[this.props.users.nextCounterPointer].tag}
-                </Card>
+          <div style={wrapperStyles}>
+            <Swipeable
+              buttons={({ right, left }) => (
+                <div style={actionsStyles}>
+                  <Button onClick={left}>Reject</Button>
+                  <Button onClick={right}>Accept</Button>
+                </div>
               )}
-            </div>
-          )}
-          {cards.length <= 1 && <Card zIndex={-2}>No more cards</Card>}
+              onAfterSwipe={() =>
+                this.props.RestAction().then(this.props.SwipeAction())
+              } //forceUpdate refreshes component before 3rd state
+            >
+              <Card
+                url={
+                  this.props.users[this.props.users.currentCounterPointer].url
+                }
+              >
+                {this.props.users[this.props.users.currentCounterPointer].tag}
+              </Card>
+            </Swipeable>
+
+            <Card
+              url={this.props.users[this.props.users.nextCounterPointer].url}
+              zIndex={-1}
+            >
+              {this.props.users[this.props.users.nextCounterPointer].tag}
+            </Card>
+          </div>
+
+          <Card zIndex={-2}>No more cards</Card>
         </div>
       </div>
     );
