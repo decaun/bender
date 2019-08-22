@@ -13,8 +13,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { applyMiddleware, createStore } from "redux";
 import { Provider } from "react-redux";
 import allReducers from "./reducers";
-import handleNewMessage from './sagas'
-import setupSocket from './sockets'
+import handleNewMessage from './routes/InstantMessaging/sagas'
+import setupSocket from './routes/InstantMessaging/sockets'
 import username from './utils/name'
 
 const sagaMiddleware = createSagaMiddleware()
@@ -37,7 +37,7 @@ store.dispatch(dispatch => {
     });
 });
 */
-store.subscribe(() => console.log(store.getState()));
+//store.subscribe(() => console.log(store.getState()));
 
 ReactDOM.render(
   <Provider store={store}>

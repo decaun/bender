@@ -1,9 +1,9 @@
 import React from "react";
 import "./App.css";
-import Navigation from "./routes/Navigation";
-import SwipeMatch from "./routes/SwipeMatch";
-import LocateEvents from "./routes/LocateEvents";
-import InstantMessaging from "./routes/InstantMessaging";
+import Navigation from "./Navigation/Navigation";
+import SwipeMatch from "./routes/SwipeMatch/SwipeMatch";
+import LocateEvents from "./routes/LocateEvents/LocateEvents";
+import InstantMessaging from "./routes/InstantMessaging/InstantMessaging";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 const App = () => (

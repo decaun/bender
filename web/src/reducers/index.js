@@ -1,9 +1,9 @@
 import { combineReducers } from "redux";
-import UserReducer from "./UserReducer";
 import GenericReducer from "./GenericReducer";
 import RestReducer from "./RestReducer";
-import messages from './messages'
-import MessageUsers from './MessageUsers'
+import UserReducer from "../routes/SwipeMatch/reducers/UserReducer";
+import messages from '../routes/InstantMessaging/reducers/messages'
+import MessageUsers from '../routes/InstantMessaging/reducers/MessageUsers'
 
 /*
  * We combine all reducers into a single object before updated data is dispatched (sent) to store

@@ -5,8 +5,8 @@ import { bindActionCreators } from "redux";
 
 import Card from "../components/Card";
 import Button from "../components/Button";
-import { GenericAction } from "../actions/GenericAction";
-import { RestAction } from "../actions/RestActions";
+import { GenericAction } from "../../../actions/GenericAction";
+import { RestAction } from "../../../actions/RestActions";
 import { SwipeAction } from "../actions/SwipeActions";
 
 const appStyles = {

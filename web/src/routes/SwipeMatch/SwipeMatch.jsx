@@ -1,5 +1,5 @@
 import React from "react";
-import Swipe from "../containers/Swipe";
+import Swipe from "./containers/Swipe";
 
 function SwipeMatch() {
   return (
