@@ -1,18 +1,18 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import Message from './Message'
+import Messager from './Messager'
 
 const MessagesList = ({ messages }) => (
-  <section id="messages-list">
+  <div>
     <ul>
       {messages.map(message => (
-        <Message
+        <Messager
           key={message.id}
           {...message}
         />
     ))}
     </ul>
-  </section>
+  </div>
 )
 
 MessagesList.propTypes = {
