@@ -1,14 +1,17 @@
+
 import React from 'react'
 import PropTypes from 'prop-types'
 
 const Sidebar = ({ MessageUsers }) => (
-  <aside>
+ 
+  <div >
     <ul>
       {MessageUsers.map(MessageUsers => (
         <li key={MessageUsers.id}>{MessageUsers.name}</li>
       ))}
     </ul>
-  </aside>
+  </div>
+
 )
 
 Sidebar.propTypes = {

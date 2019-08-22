@@ -5,8 +5,8 @@ import { AddMessage } from "./containers/AddMessage";
 
 function InstantMessaging() {
 	return (
-		<div>
-			<Sidebar />
+		<div class="container">
+			<Sidebar  />
 			<MessagesList />
 			<AddMessage />
 		</div>
