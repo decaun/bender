@@ -3,8 +3,8 @@ import { connect } from "react-redux";
 import Swipeable from "react-swipy";
 import { bindActionCreators } from "redux";
 
-import Card from "./subSwipe/Card";
-import Button from "./subSwipe/Button";
+import Card from "../components/Card";
+import Button from "../components/Button";
 import { GenericAction } from "../actions/GenericAction";
 import { RestAction } from "../actions/RestActions";
 import { SwipeAction } from "../actions/SwipeActions";

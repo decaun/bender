@@ -3,7 +3,6 @@ const GenericReducer = (state = {}, action) => {
     case "GENERIC":
       console.log("Generic action received by reducer!", action.payload);
       return `${action.type} timestamp: ${Date.now()}`;
-      break;
 
     default:
       break;

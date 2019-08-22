@@ -3,6 +3,8 @@ import ReactDOM from "react-dom";
 import logger from "redux-logger";
 import thunk from "redux-thunk";
 import promise from "redux-promise-middleware";
+import createSagaMiddleware from 'redux-saga'
+
 //import axios from "axios";
 import "./index.css";
 import App from "./App";
@@ -11,10 +13,15 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { applyMiddleware, createStore } from "redux";
 import { Provider } from "react-redux";
 import allReducers from "./reducers";
+import handleNewMessage from './sagas'
+import setupSocket from './sockets'
+import username from './utils/name'
 
-const middleware = applyMiddleware(logger, thunk, promise);
+const sagaMiddleware = createSagaMiddleware()
+const middleware = applyMiddleware(logger, thunk, promise,sagaMiddleware);
 const store = createStore(allReducers, middleware);
-
+const socket = setupSocket(store.dispatch, username)
+sagaMiddleware.run(handleNewMessage, { socket, username })
 /*
 store.dispatch(dispatch => {
   dispatch({ type: "FETCH_STARTED" });
