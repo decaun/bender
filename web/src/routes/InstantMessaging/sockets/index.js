@@ -2,7 +2,7 @@ import * as types from '../constants/ActionTypes'
 import { messageReceived, populateUsersList } from '../actions/MessageActions'
 
 const setupSocket = (dispatch, username) => {
-  const socket = new WebSocket('ws://localhost:8989')
+  var socket = new WebSocket('ws://localhost:8989')
 
   socket.onopen = () => {
     socket.send(JSON.stringify({

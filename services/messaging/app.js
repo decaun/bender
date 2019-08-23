@@ -25,6 +25,10 @@ wss.on('connection', (ws) => {
           type: 'USERS_LIST',
           users
         }))
+        console.log(JSON.stringify({
+          type: 'USERS_LIST',
+          users
+        }))
         broadcast({
           type: 'USERS_LIST',
           users

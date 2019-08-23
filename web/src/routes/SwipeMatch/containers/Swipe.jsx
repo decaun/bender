@@ -21,7 +21,7 @@ const appStyles = {
   color: "white"
 };
 
-const wrapperStyles = { position: "relative", width: "250px", height: "250px" };
+const wrapperStyles = { position: "relative", width: "450px", height: "450px" };
 const actionsStyles = {
   display: "flex",
   justifyContent: "space-between",

@@ -1,17 +1,17 @@
 const initialState = {
   1: {
     id: 1,
-    url: "https://placeimg.com/250/250/people",
+    url: "https://placeimg.com/450/450/people",
     tag: "First"
   },
   2: {
     id: 2,
-    url: "https://placeimg.com/250/250/animal",
+    url: "https://placeimg.com/450/450/animal",
     tag: "Second"
   },
   3: {
     id: 3,
-    url: "https://placeimg.com/250/250/ananas",
+    url: "https://placeimg.com/450/450/ananas",
     tag: "Third"
   },
   currentCounterPointer: 1,
