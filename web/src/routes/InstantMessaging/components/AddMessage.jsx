@@ -10,8 +10,6 @@ import {
 } from "@livechat/ui-kit";
 
 const AddMessage = props => {
-	let input;
-
 	return (
 		<TextComposer onSend={value => props.dispatch(value, "Me")}>
 			<Row align="center">
