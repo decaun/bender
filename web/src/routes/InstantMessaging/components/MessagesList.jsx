@@ -1,11 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Messager from './Messager'
+import { MessageList} from "@livechat/ui-kit";
 
 function MessagesList ({ messages }) {
   
   if(messages){return (
-  <div>
+    <MessageList active>
+
     <ul>
       {messages.map(message => (
         <Messager
@@ -14,7 +16,8 @@ function MessagesList ({ messages }) {
         />
     ))}
     </ul>
-  </div>
+
+    </MessageList>
 )}}
 
 MessagesList.propTypes = {
