@@ -14,7 +14,7 @@ const Sidebar = ({ MessageUsers }) => (
 <ChatList style={{ maxWidth: 300 }}>
 
 			{MessageUsers.map(MessageUsers => (
-        		  <ChatListItem>
+        		  <ChatListItem key={MessageUsers.id}>
             <Avatar imgUrl="https://livechat.s3.amazonaws.com/default/avatars/male_8.jpg" />
             <Column justify>
 

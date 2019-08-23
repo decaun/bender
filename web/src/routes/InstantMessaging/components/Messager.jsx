@@ -3,6 +3,9 @@ import PropTypes from "prop-types";
 import { Message, MessageText, Row } from "@livechat/ui-kit";
 
 function Messager({ message, author }) {
+	if (author && message) {
+		
+	
 	switch (author) {
 		case "Me":
 			return (
@@ -12,7 +15,7 @@ function Messager({ message, author }) {
 					</Message>
 				</Row>
 			);
-
+				
 		default:
 			return (
 				<Row>
@@ -21,7 +24,10 @@ function Messager({ message, author }) {
 					</Message>
 				</Row>
 			);
+		
 	}
+	
+}
 }
 
 Message.propTypes = {

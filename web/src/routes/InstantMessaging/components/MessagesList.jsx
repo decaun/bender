@@ -2,7 +2,9 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Messager from './Messager'
 
-const MessagesList = ({ messages }) => (
+function MessagesList ({ messages }) {
+  
+  if(messages){return (
   <div>
     <ul>
       {messages.map(message => (
@@ -13,7 +15,7 @@ const MessagesList = ({ messages }) => (
     ))}
     </ul>
   </div>
-)
+)}}
 
 MessagesList.propTypes = {
   messages: PropTypes.arrayOf(PropTypes.shape({
