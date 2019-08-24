@@ -2,6 +2,7 @@ import asyncio
 import json
 import logging
 import websockets
+import random
 
 logging.basicConfig()
 
@@ -36,14 +37,14 @@ async def update_messages(sender, data):
         await asyncio.wait([user.send(message) for user in USERS.keys() if user != sender])
 
 
-async def register(websocket):
-    USERS.update({websocket: []})
-    # await update_messages()
+async def register(websocket,data):
+    USERS.update({websocket: {"name": data['name'], "id": random.randrange(10000)}})
+    #print((max([d['id'] for d in list(USERS.values())])))
+    # await update_messages() [len(USERS)+1 if len(USERS)+1 > max([d['id'] for d in list(USERS.values())]) else len(USERS)+2]
 
 
 async def unregister(websocket):
     del USERS[websocket]
-    STATE['users'].pop()
     # await update_messages()
     await update_users()
 
@@ -56,8 +57,7 @@ async def counter(websocket, path):
         async for message in websocket:
             data = json.loads(message)
             if data["type"] == "ADD_USER":
-                await register(websocket)
-                USERS[websocket] = ({"name": data['name'], "id": len(USERS)})
+                await register(websocket,data)
                 # STATE['users'].append({"name":data['name'],"id":len(USERS)+1})
                 # print(json.dumps(list(USERS.values())))
                 await update_users()

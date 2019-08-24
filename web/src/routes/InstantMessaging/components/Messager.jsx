@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import {
 	Message,
 	MessageText,
@@ -44,10 +43,5 @@ function Messager({ message, author }) {
 		}
 	}
 }
-
-Message.propTypes = {
-	message: PropTypes.string.isRequired,
-	author: PropTypes.string.isRequired,
-};
 
 export default Messager;
