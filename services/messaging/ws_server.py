@@ -82,8 +82,9 @@ async def counter(websocket, path):
                 await update_users()
                 
             elif data["type"] == "ADD_MESSAGE":
+                asyncio.run_coroutine_threadsafe(kafka_loop("messages",data),asyncio.get_running_loop())
                 await update_messages(websocket, data)
-                asyncio.run_coroutine_threadsafe(kafka_loop("greetings",data),asyncio.get_running_loop())
+                
             else:
                 logging.error("unsupported event: {}", data)
     finally:
