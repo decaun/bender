@@ -3,6 +3,7 @@ import json
 import logging
 import websockets
 import random
+from aiokafka import AIOKafkaProducer
 
 logging.basicConfig()
 
@@ -13,6 +14,25 @@ STATE = {
 
 USERS = dict()
 
+async def kafka_loop(topic,message):
+    loop = asyncio.get_event_loop()
+
+    async def send_one(topic=topic,message=message):
+        producer = AIOKafkaProducer(
+            loop=loop, bootstrap_servers='localhost:9092',
+            value_serializer=serializer,
+            compression_type="gzip")
+        # Get cluster layout and initial topic/partition leadership information
+        await producer.start()
+        try:
+            # Produce message
+            await producer.send_and_wait(topic, json.dumps(message).encode('utf-8'))
+        finally:
+            # Wait for all pending messages to be delivered or expire.
+            await producer.stop()
+
+    loop.run_until_complete(send_one())
+
 
 def join_event():
     STATE['users'] = list(USERS.values())
@@ -20,7 +40,7 @@ def join_event():
 
 
 def message_event(data):
-
+    
     return json.dumps({"type": "ADD_MESSAGE", "message": data['message'], "author": data['author']})
 
 
@@ -56,14 +76,16 @@ async def counter(websocket, path):
         # await websocket.send(join_event())
         async for message in websocket:
             data = json.loads(message)
+            
             if data["type"] == "ADD_USER":
                 await register(websocket,data)
                 # STATE['users'].append({"name":data['name'],"id":len(USERS)+1})
                 # print(json.dumps(list(USERS.values())))
                 await update_users()
+                
             elif data["type"] == "ADD_MESSAGE":
                 await update_messages(websocket, data)
-                pass
+                asyncio.run_coroutine_threadsafe(kafka_loop("greetings",data),asyncio.get_running_loop())
             else:
                 logging.error("unsupported event: {}", data)
     finally:
