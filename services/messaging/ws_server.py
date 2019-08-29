@@ -19,9 +19,7 @@ async def kafka_loop(topic,message):
 
     async def send_one(topic=topic,message=message):
         producer = AIOKafkaProducer(
-            loop=loop, bootstrap_servers='localhost:9092',
-            value_serializer=serializer,
-            compression_type="gzip")
+            loop=loop, bootstrap_servers='localhost:9092')
         # Get cluster layout and initial topic/partition leadership information
         await producer.start()
         try:
