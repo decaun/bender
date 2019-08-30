@@ -3,7 +3,8 @@ import json
 import logging
 import websockets
 import random
-from aiokafka import AIOKafkaProducer
+from kafka import KafkaProducer
+from kafka.errors import KafkaError
 
 logging.basicConfig()
 
@@ -14,22 +15,25 @@ STATE = {
 
 USERS = dict()
 
-async def kafka_loop(topic,message):
-    loop = asyncio.get_event_loop()
+producer = KafkaProducer(bootstrap_servers=['localhost:9092'],
+        value_serializer=lambda m: json.dumps(m).encode('utf-8'),
+        retries=5)
 
-    async def send_one(topic=topic,message=message):
-        producer = AIOKafkaProducer(
-            loop=loop, bootstrap_servers='localhost:9092')
-        # Get cluster layout and initial topic/partition leadership information
-        await producer.start()
-        try:
-            # Produce message
-            await producer.send_and_wait(topic, json.dumps(message).encode('utf-8'))
-        finally:
-            # Wait for all pending messages to be delivered or expire.
-            await producer.stop()
+async def kafka_loop(topic,message,producer=producer):
+    def on_send_success(record_metadata):
+        print(record_metadata.topic)
+        print(record_metadata.partition)
+        print(record_metadata.offset)
 
-    loop.run_until_complete(send_one())
+    def on_send_error(excp):
+        log.error('I am an errback', exc_info=excp)
+    # handle exception
+
+    try:
+        producer.send(topic, message).add_callback(on_send_success).add_errback(on_send_error)
+    finally:
+        pass
+
 
 
 def join_event():
@@ -52,7 +56,11 @@ async def update_users():
 async def update_messages(sender, data):
     if USERS:  # asyncio.wait doesn't accept an empty list
         message = message_event(data)
-        await asyncio.wait([user.send(message) for user in USERS.keys() if user != sender])
+        try:
+            await asyncio.wait([user.send(message) for user in USERS.keys() if user != sender])
+        except Exception as ex:
+            print(ex)
+            pass
 
 
 async def register(websocket,data):
@@ -82,7 +90,8 @@ async def counter(websocket, path):
                 await update_users()
                 
             elif data["type"] == "ADD_MESSAGE":
-                asyncio.run_coroutine_threadsafe(kafka_loop("messages",data),asyncio.get_running_loop())
+                await kafka_loop("messages",data)
+                
                 await update_messages(websocket, data)
                 
             else:
@@ -93,5 +102,5 @@ async def counter(websocket, path):
 
 start_server = websockets.serve(counter, "localhost", 8989)
 
-asyncio.get_event_loop().run_until_complete(start_server)
+asyncio.ensure_future(start_server)
 asyncio.get_event_loop().run_forever()
